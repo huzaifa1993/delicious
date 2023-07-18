@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
-// import recipe from "../mockFetch";
+import { Link } from "react-router-dom";
+import recipe from "../mockFetch";
 
 function Veggie() {
   const [veggie, setVeggie] = useState([]);
 
   useEffect(() => {
-    // setVeggie(recipe.recipes);
-    getVeggie();
+    setVeggie(recipe.recipes);
+    // getVeggie();
   }, []);
 
   const getVeggie = async () => {
@@ -37,9 +38,11 @@ function Veggie() {
             return (
               <SplideSlide key={recipe.id}>
                 <Card>
-                  <p>{recipe.title}</p>
-                  <img src={recipe.image} alt={recipe.title} />
-                  <Gradient />
+                  <Link to={"/recipe/" + recipe.id}>
+                    <p>{recipe.title}</p>
+                    <img src={recipe.image} alt={recipe.title} />
+                    <Gradient />
+                  </Link>
                 </Card>
               </SplideSlide>
             );
@@ -60,8 +63,7 @@ const Card = styled.div`
   overflow: hidden;
   position: relative;
 
-  img 
-  {
+  img {
     border-radius: 2rem;
     position: absolute;
     left: 0;
@@ -95,6 +97,5 @@ const Gradient = styled.div`
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;
-
 
 export default Veggie;

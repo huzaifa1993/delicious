@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
-// import recipe from "../mockFetch";
+import { Link } from "react-router-dom";
+import recipe from "../mockFetch";
 
 function Popular() {
   const [popular, setPopular] = useState([]);
 
   useEffect(() => {
-    // setPopular(recipe.recipes);
-    getPopular();
+    setPopular(recipe.recipes);
+    // getPopular();
   }, []);
 
   const getPopular = async () => {
@@ -37,9 +38,11 @@ function Popular() {
             return (
               <SplideSlide key={recipe.id}>
                 <Card>
-                  <p>{recipe.title}</p>
-                  <img src={recipe.image} alt={recipe.title} />
-                  <Gradient />
+                  <Link to={"/recipe/" + recipe.id}>
+                    <p>{recipe.title}</p>
+                    <img src={recipe.image} alt={recipe.title} />
+                    <Gradient />
+                  </Link>
                 </Card>
               </SplideSlide>
             );
@@ -60,8 +63,7 @@ const Card = styled.div`
   overflow: hidden;
   position: relative;
 
-  img 
-  {
+  img {
     border-radius: 2rem;
     position: absolute;
     left: 0;
